@@ -5,17 +5,23 @@ public class Movement : MonoBehaviour
     public float speed;
 
     public Animator animator;
+
+    private Vector3 direction;
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        Vector3 direction = new Vector3(horizontal, vertical);
+        direction = new Vector3(horizontal, vertical);
 
         //Huong ma nvat se di
         AnimateMovement(direction);
 
-        transform.position += direction * speed * Time.deltaTime;
+    }
+
+    void FixedUpdate()
+    {
+        this.transform.position += direction.normalized * speed * Time.deltaTime;
     }
 
     void AnimateMovement(Vector3 direction)
